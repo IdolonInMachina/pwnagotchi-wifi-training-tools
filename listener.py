@@ -44,3 +44,9 @@ def generate_profile(ssid, passwd, remember):
     profile = profile.replace('{ssid}', ssid)
     profile = profile.replace('{passwd}', passwd)
     profile = profile.replace('{connmode}', 'auto' if remember else 'manual')
+    return profile
+
+
+def connect(ssid, password):
+    create_profile(generate_profile(ssid, password, False))
+    netsh(['wlan', 'connect', f'name=\"{ssid}\"'])
