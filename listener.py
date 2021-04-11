@@ -11,7 +11,7 @@ broadcaster_port = input('What is the port of the broadcaster?: ')
 
 def trigger_new_network():
     r = requests.get(f'http://{broadcaster_ip}:{broadcaster_port}/switch')
-    return r.data()
+    return r.json()
 
 
 def main():
@@ -52,3 +52,7 @@ def generate_profile(ssid, passwd, remember=False):
 def connect(ssid, password):
     create_profile(generate_profile(ssid, password))
     netsh(['wlan', 'connect', ssid])
+
+
+if __name__ == '__main__':
+    main()
