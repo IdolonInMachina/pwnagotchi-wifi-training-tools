@@ -38,9 +38,9 @@ def create_profile(profile):
     os.remove(path)
 
 
-def generate_profile(ssid, passwd, remember):
+def generate_profile(ssid, passwd, remember=False):
     tree = ET.parse('profile-template.xml')
-    profile = ET.tostring(tree.getroot())
+    profile = ET.tostring(tree.getroot()).decode()
     profile = profile.replace('{ssid}', ssid)
     profile = profile.replace('{passwd}', passwd)
     profile = profile.replace('{connmode}', 'auto' if remember else 'manual')
@@ -48,5 +48,5 @@ def generate_profile(ssid, passwd, remember):
 
 
 def connect(ssid, password):
-    create_profile(generate_profile(ssid, password, False))
-    netsh(['wlan', 'connect', f'name=\"{ssid}\"'])
+    create_profile(generate_profile(ssid, password))
+    netsh(['wlan', 'connect', ssid])
