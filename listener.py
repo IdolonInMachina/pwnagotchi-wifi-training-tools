@@ -15,15 +15,17 @@ def trigger_new_network():
 
 
 def main():
-    # Trigger new network
-    details = trigger_new_network()
-    # Disconnect from current network
-    netsh(['wlan', 'disconnect'])
-    # Wait for new network to be up
-    time.sleep(20)
-    # Connect to new network
-
-    # Wait set amount of time
+    while True:
+        # Trigger new network
+        details = trigger_new_network()
+        # Disconnect from current network
+        netsh(['wlan', 'disconnect'])
+        # Wait for new network to be up
+        time.sleep(20)
+        # Connect to new network
+        connect(details['ssid'], details['password'])
+        # Wait set amount of time
+        time.sleep(30)
 
 
 def netsh(args):
