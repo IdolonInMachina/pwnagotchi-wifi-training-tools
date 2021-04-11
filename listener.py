@@ -57,7 +57,7 @@ def generate_profile(ssid, passwd, remember=False):
 
 
 def connect(ssid, password):
-    create_profile(generate_profile(ssid, password))
+    create_profile(generate_profile(ssid, password, True))
     netsh(['wlan', 'connect', ssid])
 
 
