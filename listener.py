@@ -18,11 +18,18 @@ def main():
     while True:
         # Trigger new network
         details = trigger_new_network()
+        print(f"Got details {details}")
         # Disconnect from current network
+        time.sleep(5)
         netsh(['wlan', 'disconnect'])
+        print("Disconnected from network")
         # Wait for new network to be up
-        time.sleep(20)
+        print("Sleeping for 20s")
+        time.sleep(15)
+        # Scan for new networks
+        subprocess.call(['./WlanScan.exe'])
         # Connect to new network
+        print("Connecting to new network")
         connect(details['ssid'], details['password'])
         # Wait set amount of time
         time.sleep(30)
